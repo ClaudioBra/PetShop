@@ -4,7 +4,21 @@ formCadastroCliente.addEventListener("submit", event => {
   event.preventDefault()
 
   const nome = event.target.querySelector('[data-nome]')
+    .value
   const cpf = event.target.querySelector('[data-cpf]')
+    .value
 
-  cadastrarClientes(nome.value, cpf.value)
+  if (validaCPF(cpf)) {
+    cadastrarClientes(nome, cpf)
+  } else {
+    alert('O CPF não é válido')
+  }
+
 })
+
+const deletaCliente = id => {
+  return fetch(`http://localhost:4000/clientes/clientes/${id}`, {
+    method: 'DELETE'
+  })
+}
+
