@@ -16,9 +16,5 @@ formCadastroCliente.addEventListener("submit", event => {
 
 })
 
-const deletaCliente = id => {
-  return fetch(`http://localhost:4000/clientes/clientes/${id}`, {
-    method: 'DELETE'
-  })
-}
+
 
