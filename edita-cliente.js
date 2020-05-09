@@ -12,14 +12,45 @@ detalhaCliente(id).then(dados => {
 
 const formEdicao = document.querySelector('[data-form]')
 
+const alerta = (classe, mensagem) => {
+  const linha = document.createElement('tr');
+
+  const conteudoLinha = `
+    <div class="${classe}">${mensagem}</div>
+    
+`
+
+  linha.innerHTML = conteudoLinha;
+  return linha;
+}
 formEdicao.addEventListener('submit', event => {
   event.preventDefault()
 
   if (!validaCPF(inputCPF.value)) {
+    alert("ESSE NÃO EXISTE")
+    return
+  }
+
+  if (inputCPF.value.length !== 11) {
     alert("ESSE CPF NÃO EXISTE")
     return
   }
 
   editaCliente(id, inputCPF.value, inputNome.value)
+    .then(resposta => {
+      if (resposta.status === 200) {
+        formEdicao.appendChild(alerta(
+          "alert alert-success",
+          "CLIENTE EDITADO COM SUCESSO !"
+        ))
+      } else {
+        formEdicao.appendChild(alerta(
+          "alert alert-warning",
+          "O CLIENTE NÃO PODE SER EDITADO !"
+        ))
+      }
+    })
+
+
 
 })
